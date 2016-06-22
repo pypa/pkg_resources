@@ -17,7 +17,7 @@ sphinx = ['sphinx', 'rst.linker'] if needs_sphinx else []
 needs_wheel = {'release', 'bdist_wheel'}.intersection(sys.argv)
 wheel = ['wheel'] if needs_wheel else []
 
-name = 'skeleton'
+name = 'pkg_resources'
 description = ''
 
 setup_params = dict(
@@ -27,7 +27,7 @@ setup_params = dict(
 	author_email="jaraco@jaraco.com",
 	description=description or name,
 	long_description=long_description,
-	url="https://github.com/jaraco/" + name,
+	url="https://github.com/pypa/" + name,
 	packages=setuptools.find_packages(),
 	include_package_data=True,
 	namespace_packages=name.split('.')[:-1],

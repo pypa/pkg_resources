@@ -9,7 +9,7 @@ extensions = [
 ]
 
 # General information about the project.
-project = 'skeleton'
+project = 'pkg_resources'
 copyright = '2016 Jason R. Coombs'
 
 # The short X.Y version.

@@ -1,5 +1,5 @@
-Welcome to skeleton documentation!
-========================================
+Welcome to pkg_resources documentation!
+=======================================
 
 .. toctree::
    :maxdepth: 1
@@ -7,7 +7,7 @@ Welcome to skeleton documentation!
    history
 
 
-.. automodule:: skeleton
+.. automodule:: pkg_resources
     :members:
     :undoc-members:
     :show-inheritance:

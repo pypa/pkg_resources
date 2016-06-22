@@ -1,2 +1,2 @@
-skeleton
-========
+pkg_resources
+=============
