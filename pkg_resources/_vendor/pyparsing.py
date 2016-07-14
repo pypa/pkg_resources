@@ -301,7 +301,7 @@ class ParseResults(object):
             if not modal:
                 self.__accumNames[name] = 0
             if isinstance(name,int):
-                name = _ustr(name) # will always return a str, but use _ustr for consistency
+                name = _ustr(name)  # will always return a str, but use _ustr for consistency
             self.__name = name
             if not (isinstance(toklist, (type(None), basestring, list)) and toklist in (None,'',[])):
                 if isinstance(toklist,basestring):
@@ -812,17 +812,17 @@ class ParserElement(object):
         self.skipWhitespace = True
         self.whiteChars = ParserElement.DEFAULT_WHITE_CHARS
         self.copyDefaultWhiteChars = True
-        self.mayReturnEmpty = False # used when checking for left-recursion
+        self.mayReturnEmpty = False  # used when checking for left-recursion
         self.keepTabs = False
         self.ignoreExprs = list()
         self.debug = False
         self.streamlined = False
-        self.mayIndexError = True # used to optimize exception handling for subclasses that don't advance parse index
+        self.mayIndexError = True  # used to optimize exception handling for subclasses that don't advance parse index
         self.errmsg = ""
-        self.modalResults = True # used to mark results names as modal (report only last) or cumulative (list all)
-        self.debugActions = ( None, None, None ) #custom debug actions
+        self.modalResults = True  # used to mark results names as modal (report only last) or cumulative (list all)
+        self.debugActions = ( None, None, None )  # custom debug actions
         self.re = None
-        self.callPreparse = True # used to avoid redundant calls to preParse
+        self.callPreparse = True  # used to avoid redundant calls to preParse
         self.callDuringTry = False
 
     def copy( self ):
@@ -967,7 +967,7 @@ class ParserElement(object):
 
     #~ @profile
     def _parseNoCache( self, instring, loc, doActions=True, callPreParse=True ):
-        debugging = ( self.debug ) #and doActions )
+        debugging = ( self.debug )  # and doActions )
 
         if debugging or self.failAction:
             #~ print ("Match",self,"at loc",loc,"(%d,%d)" % ( lineno(loc,instring), col(loc,instring) ))
@@ -2169,7 +2169,7 @@ class LineStart(_PositionToken):
     def parseImpl( self, instring, loc, doActions=True ):
         if not( loc==0 or
             (loc == self.preParse( instring, 0 )) or
-            (instring[loc-1] == "\n") ): #col(loc, instring) != 1:
+            (instring[loc-1] == "\n") ):  # col(loc, instring) != 1:
             raise ParseException(instring, loc, self.errmsg, self)
         return loc, []
 
@@ -2417,7 +2417,7 @@ class And(ParseExpression):
     def __iadd__(self, other ):
         if isinstance( other, basestring ):
             other = Literal( other )
-        return self.append( other ) #And( [ self, other ] )
+        return self.append( other )  # And( [ self, other ] )
 
     def checkRecursion( self, parseElementList ):
         subRecCheckList = parseElementList[:] + [ self ]
@@ -2489,7 +2489,7 @@ class Or(ParseExpression):
     def __ixor__(self, other ):
         if isinstance( other, basestring ):
             other = ParserElement.literalStringClass( other )
-        return self.append( other ) #Or( [ self, other ] )
+        return self.append( other )  # Or( [ self, other ] )
 
     def __str__( self ):
         if hasattr(self,"name"):
@@ -2545,7 +2545,7 @@ class MatchFirst(ParseExpression):
     def __ior__(self, other ):
         if isinstance( other, basestring ):
             other = ParserElement.literalStringClass( other )
-        return self.append( other ) #MatchFirst( [ self, other ] )
+        return self.append( other )  # MatchFirst( [ self, other ] )
 
     def __str__( self ):
         if hasattr(self,"name"):
@@ -3025,7 +3025,7 @@ class _ForwardNoRecurse(Forward):
 class TokenConverter(ParseElementEnhance):
     """Abstract subclass of C{ParseExpression}, for converting parsed results."""
     def __init__( self, expr, savelist=False ):
-        super(TokenConverter,self).__init__( expr )#, savelist )
+        super(TokenConverter,self).__init__( expr )  # , savelist )
         self.saveAsList = False
 
 class Upcase(TokenConverter):
@@ -3101,7 +3101,7 @@ class Dict(TokenConverter):
             elif len(tok)==2 and not isinstance(tok[1],ParseResults):
                 tokenlist[ikey] = _ParseResultsWithOffset(tok[1],i)
             else:
-                dictvalue = tok.copy() #ParseResults(i)
+                dictvalue = tok.copy()  # ParseResults(i)
                 del dictvalue[0]
                 if len(dictvalue)!= 1 or (isinstance(dictvalue,ParseResults) and dictvalue.haskeys()):
                     tokenlist[ikey] = _ParseResultsWithOffset(dictvalue,i)
@@ -3602,7 +3602,7 @@ def infixNotation( baseExpr, opList, lpar=Suppress('('), rpar=Suppress(')') ):
             if opExpr is None or len(opExpr) != 2:
                 raise ValueError("if numterms=3, opExpr must be a tuple or list of two expressions")
             opExpr1, opExpr2 = opExpr
-        thisExpr = Forward()#.setName("expr%d" % i)
+        thisExpr = Forward()  # .setName("expr%d" % i)
         if rightLeftAssoc == opAssoc.LEFT:
             if arity == 1:
                 matchExpr = FollowedBy(lastExpr + opExpr) + Group( lastExpr + OneOrMore( opExpr ) )
