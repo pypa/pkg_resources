@@ -201,7 +201,7 @@ class ParseBaseException(Exception):
                 ( self.msg, self.loc, self.lineno, self.column )
     def __repr__( self ):
         return _ustr(self)
-    def markInputline( self, markerString = ">!<" ):
+    def markInputline( self, markerString=">!<" ):
         """Extracts the exception line from the input string, and marks
            the location of the exception with a special symbol.
         """
@@ -862,7 +862,7 @@ class ParserElement(object):
         newself.modalResults = not listAllMatches
         return newself
 
-    def setBreak(self,breakFlag = True):
+    def setBreak(self,breakFlag=True):
         """Method to invoke the Python pdb debugger when this element is
            about to be parsed. Set C{breakFlag} to True to enable, False to
            disable.
@@ -2227,7 +2227,7 @@ class WordStart(_PositionToken):
        use C{WordStart(alphanums)}. C{WordStart} will also match at the beginning of
        the string being parsed, or at the beginning of a line.
     """
-    def __init__(self, wordChars = printables):
+    def __init__(self, wordChars=printables):
         super(WordStart,self).__init__()
         self.wordChars = set(wordChars)
         self.errmsg = "Not at the start of a word"
@@ -2246,7 +2246,7 @@ class WordEnd(_PositionToken):
        use C{WordEnd(alphanums)}. C{WordEnd} will also match at the end of
        the string being parsed, or at the end of a line.
     """
-    def __init__(self, wordChars = printables):
+    def __init__(self, wordChars=printables):
         super(WordEnd,self).__init__()
         self.wordChars = set(wordChars)
         self.skipWhitespace = False
@@ -2263,7 +2263,7 @@ class WordEnd(_PositionToken):
 
 class ParseExpression(ParserElement):
     """Abstract subclass of ParserElement, for combining and post-processing parsed tokens."""
-    def __init__( self, exprs, savelist = False ):
+    def __init__( self, exprs, savelist=False ):
         super(ParseExpression,self).__init__(savelist)
         if isinstance( exprs, _generatorType ):
             exprs = list(exprs)
@@ -2382,7 +2382,7 @@ class And(ParseExpression):
             self.name = '-'
             self.leaveWhitespace()
 
-    def __init__( self, exprs, savelist = True ):
+    def __init__( self, exprs, savelist=True ):
         super(And,self).__init__(exprs, savelist)
         self.mayReturnEmpty = all(e.mayReturnEmpty for e in self.exprs)
         self.setWhitespaceChars( self.exprs[0].whiteChars )
@@ -2441,7 +2441,7 @@ class Or(ParseExpression):
        If two expressions match, the expression that matches the longest string will be used.
        May be constructed using the C{'^'} operator.
     """
-    def __init__( self, exprs, savelist = False ):
+    def __init__( self, exprs, savelist=False ):
         super(Or,self).__init__(exprs, savelist)
         if self.exprs:
             self.mayReturnEmpty = any(e.mayReturnEmpty for e in self.exprs)
@@ -2511,7 +2511,7 @@ class MatchFirst(ParseExpression):
        If two expressions match, the first one listed is the one that will match.
        May be constructed using the C{'|'} operator.
     """
-    def __init__( self, exprs, savelist = False ):
+    def __init__( self, exprs, savelist=False ):
         super(MatchFirst,self).__init__(exprs, savelist)
         if self.exprs:
             self.mayReturnEmpty = any(e.mayReturnEmpty for e in self.exprs)
@@ -2567,7 +2567,7 @@ class Each(ParseExpression):
        Expressions may be separated by whitespace.
        May be constructed using the C{'&'} operator.
     """
-    def __init__( self, exprs, savelist = True ):
+    def __init__( self, exprs, savelist=True ):
         super(Each,self).__init__(exprs, savelist)
         self.mayReturnEmpty = all(e.mayReturnEmpty for e in self.exprs)
         self.skipWhitespace = True
