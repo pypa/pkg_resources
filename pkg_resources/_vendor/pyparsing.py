@@ -3679,7 +3679,7 @@ def nestedExpr(opener="(", closer=")", content=None, ignoreExpr=quotedString.cop
                                 ).setParseAction(lambda t:t[0].strip()))
                 else:
                     content = (empty.copy()+CharsNotIn(opener+closer+ParserElement.DEFAULT_WHITE_CHARS
-                                ).setParseAction(lambda t:t[0].strip()))
+                                                       ).setParseAction(lambda t:t[0].strip()))
             else:
                 if ignoreExpr is not None:
                     content = (Combine(OneOrMore(~ignoreExpr + 
