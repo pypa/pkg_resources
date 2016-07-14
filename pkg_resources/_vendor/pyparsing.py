@@ -3503,7 +3503,7 @@ def _makeTags(tagStr, xml):
         printablesLessRAbrack = "".join(c for c in printables if c not in ">")
         tagAttrValue = quotedString.copy().setParseAction( removeQuotes ) | Word(printablesLessRAbrack)
         openTag = Suppress("<") + tagStr("tag") + \
-                Dict(ZeroOrMore(Group( tagAttrName.setParseAction(downcaseTokens) + \
+                Dict(ZeroOrMore(Group( tagAttrName.setParseAction(downcaseTokens) +
                 Optional( Suppress("=") + tagAttrValue ) ))) + \
                 Optional("/",default=[False]).setResultsName("empty").setParseAction(lambda s,l,t:t[0]=='/') + Suppress(">")
     closeTag = Combine(_L("</") + tagStr + ">")
@@ -3785,9 +3785,9 @@ if __name__ == "__main__":
     columnNameList = Group( delimitedList( columnName ) ).setName("columns")
     tableName      = delimitedList( ident, ".", combine=True ).setParseAction( upcaseTokens )
     tableNameList  = Group( delimitedList( tableName ) ).setName("tables")
-    simpleSQL      = ( selectToken + \
-                     ( '*' | columnNameList ).setResultsName( "columns" ) + \
-                     fromToken + \
+    simpleSQL      = ( selectToken +
+                     ( '*' | columnNameList ).setResultsName( "columns" ) +
+                     fromToken +
                      tableNameList.setResultsName( "tables" ) )
 
     simpleSQL.runTests("""\
