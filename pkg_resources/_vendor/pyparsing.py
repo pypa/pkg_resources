@@ -131,9 +131,9 @@ else:
             return unicode(obj)
             # Else encode it... but how? There are many choices... :)
             # Replace unprintables with escape codes?
-            #return unicode(obj).encode(sys.getdefaultencoding(), 'backslashreplace_errors')
+            # return unicode(obj).encode(sys.getdefaultencoding(), 'backslashreplace_errors')
             # Replace unprintables with question marks?
-            #return unicode(obj).encode(sys.getdefaultencoding(), 'replace')
+            # return unicode(obj).encode(sys.getdefaultencoding(), 'replace')
             # ...
 
     # build list of single arg builtins, tolerant of Python version, that can be used as parse actions
@@ -3437,9 +3437,9 @@ def replaceWith(replStr):
     """Helper method for common parse actions that simply return a literal value.  Especially
        useful when used with C{L{transformString<ParserElement.transformString>}()}.
     """
-    #def _replFunc(*args):
+    # def _replFunc(*args):
     #    return [replStr]
-    #return _replFunc
+    # return _replFunc
     return functools.partial(next, itertools.repeat([replStr]))
 
 def removeQuotes(s,l,t):
