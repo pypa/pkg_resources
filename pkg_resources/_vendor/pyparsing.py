@@ -1732,7 +1732,7 @@ class Word(Token):
                 bodyChars = ''.join(c for c in bodyChars if c not in excludeChars)
         self.initCharsOrig = initChars
         self.initChars = set(initChars)
-        if bodyChars :
+        if bodyChars:
             self.bodyCharsOrig = bodyChars
             self.bodyChars = set(bodyChars)
         else:
@@ -2081,7 +2081,7 @@ class White(Token):
        matched; default is C{" \\t\\r\\n"}.  Also takes optional C{min}, C{max}, and C{exact} arguments,
        as defined for the C{L{Word}} class."""
     whiteStrs = {
-        " " : "<SPC>",
+        " ": "<SPC>",
         "\t": "<TAB>",
         "\n": "<LF>",
         "\r": "<CR>",
@@ -2141,7 +2141,7 @@ class GoToColumn(_PositionToken):
             instrlen = len(instring)
             if self.ignoreExprs:
                 loc = self._skipIgnorables( instring, loc )
-            while loc < instrlen and instring[loc].isspace() and col( loc, instring ) != self.col :
+            while loc < instrlen and instring[loc].isspace() and col( loc, instring ) != self.col:
                 loc += 1
         return loc
 
@@ -3562,7 +3562,7 @@ def withClass(classname, namespace=''):
        difficult because C{class} is a reserved word in Python.
        """
     classattr = "%s:class" % namespace if namespace else "class"
-    return withAttribute(**{classattr : classname})        
+    return withAttribute(**{classattr: classname})        
 
 opAssoc = _Constants()
 opAssoc.LEFT = object()
@@ -3757,7 +3757,7 @@ punc8bit = srange(r"[\0xa1-\0xbf\0xd7\0xf7]")
 anyOpenTag,anyCloseTag = makeHTMLTags(Word(alphas,alphanums+"_:"))
 commonHTMLEntity = Combine(_L("&") + oneOf("gt lt amp nbsp quot").setResultsName("entity") +";").streamline()
 _htmlEntityMap = dict(zip("gt lt amp nbsp quot".split(),'><& "'))
-replaceHTMLEntity = lambda t : t.entity in _htmlEntityMap and _htmlEntityMap[t.entity] or None
+replaceHTMLEntity = lambda t: t.entity in _htmlEntityMap and _htmlEntityMap[t.entity] or None
 
 # it's easy to get these comment structures wrong - they're very common, so may as well make them available
 cStyleComment = Regex(r"/\*(?:[^*]*\*+)+?/").setName("C style comment")
