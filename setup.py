@@ -24,6 +24,9 @@ params = dict(
 	include_package_data=True,
 	namespace_packages=name.split('.')[:-1],
 	install_requires=[
+		'packaging>=16.8',
+		'appdirs>=1.4',
+		'six>=1.10',
 	],
 	extras_require={
 	},
