@@ -2,19 +2,22 @@ sudo: false
 language: python
 python:
 - 2.7
-- 3.5
+- 3.6
+install:
+- pip install tox "setuptools>=28.2"
 script:
-- pip install -U pytest
-- python setup.py test
+- tox
 branches:
   except:
-    - skeleton
+  - skeleton
 deploy:
   provider: pypi
+  server: https://upload.pypi.org/legacy/
   on:
     tags: true
     all_branches: true
-    python: 3.5
+    python: 3.6
   user: jaraco
   # supply password with `travis encrypt --add deploy.password`
-  distributions: release
+  distributions: dists
+  skip_upload_docs: true
