@@ -12,17 +12,17 @@ import stat
 import distutils.dist
 import distutils.command.install_egg_info
 
-from pkg_resources.extern.six.moves import map
+from six.moves import map
 
 import pytest
 
 import pkg_resources
 
-
 try:
     unicode
 except NameError:
     unicode = str
+
 
 def timestamp(dt):
     """
@@ -34,12 +34,14 @@ def timestamp(dt):
         # Python 3.2 and earlier
         return time.mktime(dt.timetuple())
 
+
 class EggRemover(unicode):
     def __call__(self):
         if self in sys.path:
             sys.path.remove(self)
         if os.path.exists(self):
             os.remove(self)
+
 
 class TestZipProvider(object):
     finalizers = []
@@ -94,6 +96,7 @@ class TestZipProvider(object):
         assert f.read() == 'hello, world!'
         manager.cleanup_resources()
 
+
 class TestResourceManager(object):
     def test_get_cache_path(self):
         mgr = pkg_resources.ResourceManager()
@@ -107,6 +110,7 @@ class TestIndependence:
     """
     Tests to ensure that pkg_resources runs independently from setuptools.
     """
+
     def test_setuptools_not_imported(self):
         """
         In a separate Python environment, import pkg_resources and assert
@@ -122,15 +126,14 @@ class TestIndependence:
         subprocess.check_call(cmd)
 
 
-
 class TestDeepVersionLookupDistutils(object):
-
     @pytest.fixture
     def env(self, tmpdir):
         """
         Create a package environment, similar to a virtualenv,
         in which packages are installed.
         """
+
         class Environment(str):
             pass
 
