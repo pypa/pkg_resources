@@ -5,10 +5,10 @@ import sys
 import string
 import platform
 
-from six.moves import map
+from pkg_resources.extern.six.moves import map
 
 import pytest
-import packaging
+from pkg_resources.extern import packaging
 
 import pkg_resources
 from pkg_resources import (parse_requirements, VersionConflict, parse_version,
@@ -206,12 +206,10 @@ class TestDistro:
         """Extras are also evaluated as markers at resolution time."""
         ad = pkg_resources.Environment([])
         ws = WorkingSet([])
-        # Metadata needs to be native strings due to cStringIO behaviour in
-        # 2.6, so use str().
         Foo = Distribution.from_filename(
             "/foo_dir/Foo-1.2.dist-info",
-            metadata=Metadata(("METADATA", str("Provides-Extra: baz\n"
-                               "Requires-Dist: quux; extra=='baz'")))
+            metadata=Metadata(("METADATA", "Provides-Extra: baz\n"
+                               "Requires-Dist: quux; extra=='baz'"))
         )
         ad.add(Foo)
         assert list(ws.resolve(parse_requirements("Foo"), ad)) == [Foo]
@@ -224,12 +222,10 @@ class TestDistro:
         """Extras are also evaluated as markers at resolution time."""
         ad = pkg_resources.Environment([])
         ws = WorkingSet([])
-        # Metadata needs to be native strings due to cStringIO behaviour in
-        # 2.6, so use str().
         Foo = Distribution.from_filename(
             "/foo_dir/Foo-1.2.dist-info",
-            metadata=Metadata(("METADATA", str("Provides-Extra: baz-lightyear\n"
-                               "Requires-Dist: quux; extra=='baz-lightyear'")))
+            metadata=Metadata(("METADATA", "Provides-Extra: baz-lightyear\n"
+                               "Requires-Dist: quux; extra=='baz-lightyear'"))
         )
         ad.add(Foo)
         assert list(ws.resolve(parse_requirements("Foo"), ad)) == [Foo]
@@ -241,14 +237,12 @@ class TestDistro:
     def test_marker_evaluation_with_multiple_extras(self):
         ad = pkg_resources.Environment([])
         ws = WorkingSet([])
-        # Metadata needs to be native strings due to cStringIO behaviour in
-        # 2.6, so use str().
         Foo = Distribution.from_filename(
             "/foo_dir/Foo-1.2.dist-info",
-            metadata=Metadata(("METADATA", str("Provides-Extra: baz\n"
+            metadata=Metadata(("METADATA", "Provides-Extra: baz\n"
                                "Requires-Dist: quux; extra=='baz'\n"
                                "Provides-Extra: bar\n"
-                               "Requires-Dist: fred; extra=='bar'\n")))
+                               "Requires-Dist: fred; extra=='bar'\n"))
         )
         ad.add(Foo)
         quux = Distribution.from_filename("/foo_dir/quux-1.0.dist-info")
@@ -261,22 +255,20 @@ class TestDistro:
     def test_marker_evaluation_with_extras_loop(self):
         ad = pkg_resources.Environment([])
         ws = WorkingSet([])
-        # Metadata needs to be native strings due to cStringIO behaviour in
-        # 2.6, so use str().
         a = Distribution.from_filename(
             "/foo_dir/a-0.2.dist-info",
-            metadata=Metadata(("METADATA", str("Requires-Dist: c[a]")))
+            metadata=Metadata(("METADATA", "Requires-Dist: c[a]"))
         )
         b = Distribution.from_filename(
             "/foo_dir/b-0.3.dist-info",
-            metadata=Metadata(("METADATA", str("Requires-Dist: c[b]")))
+            metadata=Metadata(("METADATA", "Requires-Dist: c[b]"))
         )
         c = Distribution.from_filename(
             "/foo_dir/c-1.0.dist-info",
-            metadata=Metadata(("METADATA", str("Provides-Extra: a\n"
+            metadata=Metadata(("METADATA", "Provides-Extra: a\n"
                                "Requires-Dist: b;extra=='a'\n"
                                "Provides-Extra: b\n"
-                               "Requires-Dist: foo;extra=='b'")))
+                               "Requires-Dist: foo;extra=='b'"))
         )
         foo = Distribution.from_filename("/foo_dir/foo-0.1.dist-info")
         for dist in (a, b, c, foo):
@@ -593,7 +585,7 @@ class TestParsing:
             [Requirement('Twis-Ted>=1.2-1')]
         )
         assert (
-            list(parse_requirements('Twisted >=1.2, \ # more\n<2.0'))
+            list(parse_requirements('Twisted >=1.2, \\ # more\n<2.0'))
             ==
             [Requirement('Twisted>=1.2,<2.0')]
         )
