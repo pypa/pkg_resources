@@ -1,3 +1,8 @@
+v0.2.0
+======
+
+Refresh with pkg_resources from Setuptools 38.5.2.
+
 v0.1.0
 ======
 
