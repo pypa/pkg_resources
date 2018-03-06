@@ -3,15 +3,11 @@
 
 .. image:: https://img.shields.io/pypi/pyversions/pkg_resources.svg
 
-.. image:: https://img.shields.io/pypi/dm/pkg_resources.svg
-
 .. image:: https://img.shields.io/travis/pypa/pkg_resources/master.svg
-   :target: http://travis-ci.org/pypa/pkg_resources
+   :target: https://travis-ci.org/pypa/pkg_resources
 
+.. .. image:: https://img.shields.io/appveyor/ci/pypa/pkg_resources/master.svg
+..    :target: https://ci.appveyor.com/project/pypa/pkg_resources/branch/master
 
-License
-=======
-
-License is indicated in the project metadata (typically one or more
-of the Trove classifiers). For more details, see `this explanation
-<https://github.com/jaraco/skeleton/issues/1>`_.
+.. .. image:: https://readthedocs.org/projects/pkg_resources/badge/?version=latest
+..    :target: https://pkg_resources.readthedocs.io/en/latest/?badge=latest
