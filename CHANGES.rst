@@ -1,3 +1,8 @@
+v0.3.0
+======
+
+No longer rely on vendored packages. Still supply them.
+
 v0.2.0
 ======
 
