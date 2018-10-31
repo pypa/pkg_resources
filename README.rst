@@ -11,3 +11,19 @@
 
 .. .. image:: https://readthedocs.org/projects/pkg_resources/badge/?version=latest
 ..    :target: https://pkg_resources.readthedocs.io/en/latest/?badge=latest
+
+
+Testing
+=======
+
+It may be tricky to test pkg_resources, as it may easily conflict with an installed one.
+
+There's a working path (assuming you're storing your venvs in ~/.venvs)::
+
+  python3 -m venv ~/.venvs/pkg_resources
+  pip install six appdirs packaging  # A python3 -m pip install -e .[testing] won't work
+                                     # at this point, as it will try to use the
+                                     # pkg_resources from the current directory,
+                                     # needing six, but not yet having it
+  pip install -e .[testing]  # This one should pass, using the ./pkg_resources.
+  pytest  # This one should pass too, and should test ./pkg_resources
