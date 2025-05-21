@@ -1,0 +1,1 @@
+A (still deprecated) copy of ``pkg_resources`` as found in Setuptools 80. Made available for a compatibility install in environments that previously dependended on Setuptools for this functionality. In other words, DO NOT USE.
